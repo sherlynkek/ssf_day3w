@@ -75,9 +75,4 @@ public class Contact {
         return name + "," + email + "," + phoneNum + "," + dob;
     }
 
-    public static Contact of(String line) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'of'");
-    } 
-
 }
