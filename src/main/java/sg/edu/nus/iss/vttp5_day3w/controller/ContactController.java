@@ -12,7 +12,7 @@ import sg.edu.nus.iss.vttp5_day3w.model.Contact;
 import sg.edu.nus.iss.vttp5_day3w.service.ContactService;
 
 @Controller
-@RequestMapping("/contacts")
+@RequestMapping("/persons")
 public class ContactController {
     
     @Autowired
@@ -20,11 +20,16 @@ public class ContactController {
 
     @GetMapping()
     public String contactListing(Model model) {
-        List<Contact> contacts = contactService.findAll();
-        model.addAttribute("contacts", contacts);
+        List<Contact> persons = contactService.getAllContacts();
+        model.addAttribute("contacts", persons);
         return "contactlist";
     }
 
-    
+    @GetMapping("/contact")
+    public String getContactForm(Model model) {
+        
+        return "contactForm";
+    }
+
 
 }
