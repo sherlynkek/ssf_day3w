@@ -1,9 +1,9 @@
 package sg.edu.nus.iss.vttp5_day3w.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import sg.edu.nus.iss.vttp5_day3w.model.Contact;
@@ -11,23 +11,40 @@ import sg.edu.nus.iss.vttp5_day3w.model.Contact;
 @Service
 public class ContactService {
 
-    @Autowired
-    ContactRepo contactRepo;
-
-    public ContactService(ContactRepository contactRepository) {
-        this.contactRepository = contactRepository;
+    
+    public List<Contact> getAllContacts() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'findAll'");
     }
 
-    public List<Contact> getAll() {
-        return contactRepository.getAll();
+    public Object getAll() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getAll'");
     }
 
-    public void add(Contact c) {
-        contactRepository.add(c);
+    public void add(Contact tmp) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'add'");
     }
 
     public Optional<Contact> findContactById(String id) {
-        return contactRepository.findContactById(id);
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'findContactById'");
+    }
+
+    public List<String> getContactData(String id) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getContactData'");
+    }
+
+    public boolean isDobValid(Date dob) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'isDobValid'");
+    }
+
+    public void createContact(Contact p) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'createContact'");
     }
     
 }

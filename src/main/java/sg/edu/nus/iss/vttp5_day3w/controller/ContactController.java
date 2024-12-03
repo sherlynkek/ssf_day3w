@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,8 +17,6 @@ import jakarta.validation.Valid;
 import sg.edu.nus.iss.vttp5_day3w.model.Contact;
 import sg.edu.nus.iss.vttp5_day3w.service.ContactService;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-
 
 @Controller
 @RequestMapping("/contact")
@@ -26,33 +25,47 @@ public class ContactController {
     @Autowired
     ContactService contactService;
 
-    @GetMapping("")
-    public String displayContacts(Model model) {
-        model.addAttribute("contacts", contactService.getAll());
-        return "contacts";
+    @GetMapping()
+    public String getAllPersons(Model model){
+        List<Contact> persons = contactService.getAllContacts();
+        model.addAttribute("persons", persons);
+
+        return "contactList";
     }
 
-    @GetMapping("/add")
-    public String createForm(Model model) {
-        model.addAttribute("contact", new Contact());
-        return "contact-create";
+    @GetMapping("/contact/{id}")
+    public String getByID(@PathVariable String id, Model model){
+        List<String> dataRead = contactService.getContactData(id);
+        model.addAttribute("dataRead", dataRead);
+
+        return "individualContact";
     }
-    
-    @PostMapping("/add")
-    public String createContact(@Valid @ModelAttribute Contact contact, BindingResult binding, Model model) {
-        if (binding.hasErrors()) {
-            System.out.println(binding.getAllErrors());
-            return "contact-create";
+
+    @GetMapping("/contact")
+    public String getContactForm(Model model){
+        Contact p = new Contact();
+        model.addAttribute("person", p);
+
+        return "contactForm";
+    }
+
+    @PostMapping("/contact")
+    public String handleContactForm(@Valid @ModelAttribute("person") Contact person, BindingResult result,
+    Model model){
+        if(result.hasErrors()){
+            return "contactForm";
         }
-        Contact tmp = new Contact(contact.getName(), contact.getEmail(), contact.getPhoneNum(), contact.getDob());
-        contactService.add(tmp);
-        return "redirect:/contact";
-    }
-    
-    @GetMapping("/{id}")
-    public String indivContactDetails(@PathVariable("id") String id, Model model) {
-        Optional<Contact> contact = contactService.findContactById(id);
-        model.addAttribute("contact", contact.get());
-        return "contact-details";
+
+        if (!contactService.isDobValid(person.getDob())){
+            ObjectError err = new ObjectError("ageError",
+            "Your age doesn't allow you to be added as a contact.");
+            result.addError(err);
+            return "contactForm";
+        }
+
+        Contact p = new Contact(person.getName(), person.getEmail(), person.getPhoneNum(), person.getDob());
+        contactService.createContact(p);
+        
+        return "redirect:/persons";
     }
 }
