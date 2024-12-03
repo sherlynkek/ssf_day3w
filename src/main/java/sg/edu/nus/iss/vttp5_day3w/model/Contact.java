@@ -14,7 +14,7 @@ import jakarta.validation.constraints.Size;
 public class Contact {
 
     @NotEmpty(message = "Please enter your name")
-    @Size(min = 2, max = 60, message = "Name must be between 2 to 60 characters")
+    @Size(min = 3, max = 64, message = "Name must be between 3 to 64 characters")
     private String name;
 
     @Email(message = "Please enter a valid email")
@@ -24,6 +24,7 @@ public class Contact {
     private String phoneNum;
 
     @Past(message = "Birth Date must be a past date")
+    @Size(min = 10, max = 100, message = "Age must be between 10 to 100")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dob;
 
