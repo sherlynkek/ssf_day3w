@@ -35,6 +35,10 @@ public class Contact {
         this.dob = dob;
     }
 
+    public Contact() {
+        //TODO Auto-generated constructor stub
+    }
+
     public String getName() {
         return name;
     }
