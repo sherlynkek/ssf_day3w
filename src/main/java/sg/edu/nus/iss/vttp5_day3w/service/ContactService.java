@@ -3,6 +3,7 @@ package sg.edu.nus.iss.vttp5_day3w.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import sg.edu.nus.iss.vttp5_day3w.model.Contact;
@@ -10,24 +11,23 @@ import sg.edu.nus.iss.vttp5_day3w.model.Contact;
 @Service
 public class ContactService {
 
-    public List<Contact> getAllContacts() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findAll'");
+    @Autowired
+    ContactRepo contactRepo;
+
+    public ContactService(ContactRepository contactRepository) {
+        this.contactRepository = contactRepository;
     }
 
-    public Object getAll() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getAll'");
+    public List<Contact> getAll() {
+        return contactRepository.getAll();
     }
 
-    public void add(Contact tmp) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'add'");
+    public void add(Contact c) {
+        contactRepository.add(c);
     }
 
     public Optional<Contact> findContactById(String id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findContactById'");
+        return contactRepository.findContactById(id);
     }
     
 }
