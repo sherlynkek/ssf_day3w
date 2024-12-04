@@ -33,39 +33,5 @@ public class ContactController {
         return "contactList";
     }
 
-    @GetMapping("/contact/{id}")
-    public String getByID(@PathVariable String id, Model model){
-        List<String> dataRead = contactService.getContactData(id);
-        model.addAttribute("dataRead", dataRead);
-
-        return "individualContact";
-    }
-
-    @GetMapping("/contact")
-    public String getContactForm(Model model){
-        Contact p = new Contact();
-        model.addAttribute("person", p);
-
-        return "contactForm";
-    }
-
-    @PostMapping("/contact")
-    public String handleContactForm(@Valid @ModelAttribute("person") Contact person, BindingResult result,
-    Model model){
-        if(result.hasErrors()){
-            return "contactForm";
-        }
-
-        if (!contactService.isDobValid(person.getDob())){
-            ObjectError err = new ObjectError("ageError",
-            "Your age doesn't allow you to be added as a contact.");
-            result.addError(err);
-            return "contactForm";
-        }
-
-        Contact p = new Contact(person.getName(), person.getEmail(), person.getPhoneNum(), person.getDob());
-        contactService.createContact(p);
-        
-        return "redirect:/persons";
-    }
+    
 }
