@@ -1,7 +1,8 @@
 package sg.edu.nus.iss.vttp5_day3w.model;
 
+import java.io.File;
 import java.util.Date;
-import java.util.UUID;
+import java.util.Random;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -10,11 +11,13 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import sg.edu.nus.iss.vttp5_day3w.util.Utility;
 
 
 public class Contact {
 
     private String id;
+    private File contactFile;
 
     @NotEmpty(message = "Please enter your name")
     @Size(min = 3, max = 64, message = "Name must be between 3 to 64 characters")
@@ -32,7 +35,10 @@ public class Contact {
     private Date dob;
 
     public Contact(String name, String email, String phoneNum, Date dob) {
-        this.id = UUID.randomUUID().toString().replace("-","").substring(0,8);
+        Random random = new Random();
+        int randomInt = random.nextInt();
+        this.id += Integer.toHexString(randomInt);
+        this.contactFile = new File(".\\" + Utility.dataDir + File.separator + this.id + ".txt");
         this.name = name;
         this.email = email;
         this.phoneNum = phoneNum;
@@ -50,6 +56,14 @@ public class Contact {
         this.id = id;
     }
 
+    public File getContactFile() {
+        return contactFile;
+    }
+
+    public void setContactFile(File contactFile) {
+        this.contactFile = contactFile;
+    }
+    
     public String getName() {
         return name;
     }

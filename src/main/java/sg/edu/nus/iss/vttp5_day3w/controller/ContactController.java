@@ -5,9 +5,15 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import jakarta.validation.Valid;
 import sg.edu.nus.iss.vttp5_day3w.model.Contact;
 import sg.edu.nus.iss.vttp5_day3w.service.ContactService;
 
@@ -26,5 +32,38 @@ public class ContactController {
         return "contactList";
     }
 
+    @GetMapping("/contact/{id}")
+    public String getById(@PathVariable String id, Model model) {
+        List<String> dataRead = contactService.getContactData(id);
+        model.addAttribute("dataRead", dataRead);
+
+        return "individualContact";
+    }
     
+    @GetMapping("/contact")
+    public String getContactForm(Model model) {
+        Contact p = new Contact();
+        model.addAttribute("person", p);
+
+        return "contactForm";
+    }
+
+    @PostMapping("/contact")
+    public String HandleContactForm(@Valid @ModelAttribute("person") Contact person, BindingResult result,
+    Model model) {
+        if(result.hasErrors()) {
+            return "contactForm";
+        }
+        
+        if(!contactService.isDobValid(person.getDob())) {
+            ObjectError err = new ObjectError("ageError", "Your age doesn't allow you to be added as a contact.");
+            result.addError(err);
+            return "contactForm";
+        }
+
+        Contact p = new Contact(person.getName(), person.getEmail(), person.getPhoneNum(), person.getDob());
+        contactService.createContact(p);
+
+        return "redirect:/persons";
+    }
 }

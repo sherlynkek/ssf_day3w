@@ -16,4 +16,17 @@ public class ContactRepo {
         return persons;
     }
 
+    public void createContact(Contact p) {
+        persons.add(p);
+    }
+
+    public Contact findById(String id) {
+        Contact foundContact = null;
+        for(Contact p : persons) {
+            if(p.getId().equals(id)) {
+                foundContact = p;
+            }
+        }
+        return foundContact;
+    }
 }
