@@ -30,7 +30,6 @@ public class Contact {
     private String phoneNum;
 
     @Past(message = "Birth Date must be a past date")
-    @Size(min = 10, max = 100, message = "Age must be between 10 to 100")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dob;
 

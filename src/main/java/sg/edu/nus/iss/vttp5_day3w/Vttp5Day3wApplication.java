@@ -12,16 +12,16 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class Vttp5Day3wApplication {
 
 	public static void main(String[] args) throws IOException {
-		// SpringApplication.run(Vttp5Day3wApplication.class, args);
+		SpringApplication.run(Vttp5Day3wApplication.class, args);
 
-		SpringApplication app = new SpringApplication(Vttp5Day3wApplication.class);
+		/* /* SpringApplication app = new SpringApplication(Vttp5Day3wApplication.class);
 		ApplicationArguments argsOptions = new DefaultApplicationArguments(args);
 		String dirPath;
 
 		if(argsOptions.containsOption("dataDir")) {
 
 			System.out.println("in data dir");
-			
+
 			dirPath = argsOptions.getOptionValues("dataDir").get(0);
 
 			File file = new File(dirPath);
@@ -37,7 +37,7 @@ public class Vttp5Day3wApplication {
 			System.out.println("No --datadir arguement provided");
 			System.exit(1);
 		}
-		app.run(args);
-	}
+		app.run(args); */
+	} 
 
 }
