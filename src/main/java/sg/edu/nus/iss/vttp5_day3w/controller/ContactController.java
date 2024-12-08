@@ -12,7 +12,7 @@ import sg.edu.nus.iss.vttp5_day3w.model.Contact;
 import sg.edu.nus.iss.vttp5_day3w.service.ContactService;
 
 @Controller
-@RequestMapping("/contact")
+@RequestMapping("/persons")
 public class ContactController {
     
     @Autowired

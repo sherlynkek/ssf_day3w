@@ -19,6 +19,9 @@ public class Vttp5Day3wApplication {
 		String dirPath;
 
 		if(argsOptions.containsOption("dataDir")) {
+
+			System.out.println("in data dir");
+			
 			dirPath = argsOptions.getOptionValues("dataDir").get(0);
 
 			File file = new File(dirPath);

@@ -1,6 +1,7 @@
 package sg.edu.nus.iss.vttp5_day3w.model;
 
 import java.util.Date;
+import java.util.UUID;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -12,6 +13,8 @@ import jakarta.validation.constraints.Size;
 
 
 public class Contact {
+
+    private String id;
 
     @NotEmpty(message = "Please enter your name")
     @Size(min = 3, max = 64, message = "Name must be between 3 to 64 characters")
@@ -29,6 +32,7 @@ public class Contact {
     private Date dob;
 
     public Contact(String name, String email, String phoneNum, Date dob) {
+        this.id = UUID.randomUUID().toString().replace("-","").substring(0,8);
         this.name = name;
         this.email = email;
         this.phoneNum = phoneNum;
@@ -36,6 +40,14 @@ public class Contact {
     }
 
     public Contact() {
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -69,10 +81,11 @@ public class Contact {
     public void setDob(Date dob) {
         this.dob = dob;
     }
+    
 
     @Override
     public String toString() {
-        return name + "," + email + "," + phoneNum + "," + dob;
+        return id + "," + name + "," + email + "," + phoneNum + "," + dob;
     }
 
 }
