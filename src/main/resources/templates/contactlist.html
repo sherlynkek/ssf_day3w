@@ -8,10 +8,10 @@
 </head>
 <body>
     <div data-th-if="${#lists.isEmpty(persons)}">
-        <h1>There is nobosy in your contact list</h1>
+        <h3>There is nobody in your contact list</h3>
     </div>
     <div data-th-unless="${#lists.isEmpty(persons)}">
-        <h1>Your contact list</h1>
+        <h3>Your contact list</h3>
         <table class="table table-striped-columns">
             <thead>
                 <tr>
